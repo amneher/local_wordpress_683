@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     env_file: .env
     ports:
-      - 8080:80
+      - 8082:80
     volumes:
       - ./nginx:/etc/nginx/conf.d:rw
       - wordpress:/var/www/html
@@ -27,7 +27,7 @@ services:
       timeout: 20s
       retries: 10
     ports:
-      - 3306:3306
+      - 3307:3306
     volumes:
       - dbdata:/var/lib/mysql
     networks:

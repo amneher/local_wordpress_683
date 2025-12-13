@@ -1,0 +1,24 @@
+{
+    "name": "andrew/local_wordpress_683",
+    "description": "template for local Wordpress development",
+    "type": "project",
+    "require": {
+        
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "monolog/monolog": "^2.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Andrew\\LocalWordpress683\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andrew Neher",
+            "email": "andrew.neher1@gmail.com"
+        }
+    ]
+}
