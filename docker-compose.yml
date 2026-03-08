@@ -50,7 +50,7 @@ services:
     depends_on:
       - database
     container_name: ${CONTAINER_NAME}-wordpress
-    image: wordpress:6.8.3-fpm-alpine
+    image: wordpress:6.9.1-fpm-alpine
     restart: unless-stopped
     env_file: .env
     environment:
@@ -58,6 +58,9 @@ services:
       WORDPRESS_DB_NAME: '${DATABASE_NAME}'
       WORDPRESS_DB_USER: '${DATABASE_USER}'
       WORDPRESS_DB_PASSWORD: '${DATABASE_PASSWORD}'
+      WP_ENVIRONMENT_TYPE: '${WP_ENVIRONMENT_TYPE}'
+      WORDPRESS_DEBUG: '${WP_DEBUG}'
+      WORDPRESS_DEBUG_LOG: '${WP_DEBUG_LOG}'
     volumes:
       - wordpress:/var/www/html
       - ./src:/var/www/html/wp-content:rw
