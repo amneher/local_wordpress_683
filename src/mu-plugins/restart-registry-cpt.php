@@ -14,6 +14,45 @@ add_filter('wp_is_application_passwords_available', '__return_true');
  */
 
 add_action('init', function () {
+    if (!get_role('registry_user')) {
+        add_role('registry_user', 'Registry User', ['read' => true]);
+    }
+
+    // Use add_cap so caps stay current even if the role was already persisted.
+    $registry_user_caps = [
+        'edit_restart_registries',
+        'publish_restart_registries',
+        'delete_restart_registries',
+        'read_private_restart_registries',
+    ];
+    $registry_user = get_role('registry_user');
+    foreach ($registry_user_caps as $cap) {
+        $registry_user->add_cap($cap);
+    }
+
+    // Grant administrator the full set of custom caps so admin users can
+    // create/edit/delete any restart-registry post (including setting author).
+    $admin_caps = [
+        'edit_restart_registries',
+        'edit_others_restart_registries',
+        'edit_private_restart_registries',
+        'edit_published_restart_registries',
+        'publish_restart_registries',
+        'read_private_restart_registries',
+        'delete_restart_registries',
+        'delete_others_restart_registries',
+        'delete_private_restart_registries',
+        'delete_published_restart_registries',
+    ];
+    $admin = get_role('administrator');
+    if ($admin) {
+        foreach ($admin_caps as $cap) {
+            $admin->add_cap($cap);
+        }
+    }
+});
+
+add_action('init', function () {
     register_post_type('restart-registry', [
         'label'               => 'Registries',
         'labels'              => [
@@ -32,6 +71,8 @@ add_action('init', function () {
         'has_archive'         => false,
         'hierarchical'        => false,
         'rewrite'             => ['slug' => 'registry'],
+        'capability_type'     => ['restart_registry', 'restart_registries'],
+        'map_meta_cap'        => true,
     ]);
 });
 
