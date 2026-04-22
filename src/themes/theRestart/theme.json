@@ -4,15 +4,13 @@
     "settings": {
         "color": {
             "palette": [
-                { "name": "Primary",        "slug": "primary",        "color": "#47b4b0" },
-                { "name": "Primary Dark",   "slug": "primary-dark",   "color": "#193540" },
-                { "name": "Accent",         "slug": "accent",         "color": "#ebd060" },
-                { "name": "Dark",           "slug": "dark",           "color": "#193540" },
-                { "name": "Mid",            "slug": "mid",            "color": "#8a9ea0" },
-                { "name": "Cream",          "slug": "cream",          "color": "#9fd4b3" },
-                { "name": "Green",          "slug": "green",          "color": "#8ad2a0" },
-                { "name": "Base",           "slug": "base",           "color": "#ffffff" },
-                { "name": "Text",           "slug": "text",           "color": "#193540" }
+                { "name": "Primary",  "slug": "primary",  "color": "#47b4b0" },
+                { "name": "Dark",     "slug": "dark",     "color": "#193540" },
+                { "name": "Accent",   "slug": "accent",   "color": "#ebd060" },
+                { "name": "Mid",      "slug": "mid",      "color": "#8a9ea0" },
+                { "name": "Mint",     "slug": "mint",     "color": "#9fd4b3" },
+                { "name": "Green",    "slug": "green",    "color": "#8ad2a0" },
+                { "name": "Base",     "slug": "base",     "color": "#ffffff" }
             ],
             "custom": false
         },
@@ -62,8 +60,8 @@
     },
     "styles": {
         "color": {
-            "background": "var(--wp--preset--color--cream)",
-            "text": "var(--wp--preset--color--text)"
+            "background": "var(--wp--preset--color--mint)",
+            "text": "var(--wp--preset--color--dark)"
         },
         "typography": {
             "fontFamily": "var(--wp--preset--font-family--libre-caslon-text)",
@@ -100,7 +98,7 @@
                 }
             },
             "link": {
-                "color": { "text": "var(--wp--preset--color--primary-dark)" },
+                "color": { "text": "var(--wp--preset--color--dark)" },
                 ":hover": {
                     "color": { "text": "var(--wp--preset--color--primary)" }
                 }
@@ -120,7 +118,7 @@
                 },
                 ":hover": {
                     "color": {
-                        "background": "var(--wp--preset--color--primary-dark)",
+                        "background": "var(--wp--preset--color--dark)",
                         "text": "var(--wp--preset--color--base)"
                     }
                 }
