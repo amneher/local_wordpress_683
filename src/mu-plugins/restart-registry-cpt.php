@@ -68,7 +68,7 @@ add_action('init', function () {
         'rest_base'           => 'restart-registry',
         'supports'            => ['title', 'editor', 'excerpt', 'custom-fields', 'author'],
         'taxonomies'          => ['category', 'post_tag'],
-        'has_archive'         => false,
+        'has_archive'         => 'registry',
         'hierarchical'        => false,
         'rewrite'             => ['slug' => 'registry'],
         'capability_type'     => ['restart_registry', 'restart_registries'],

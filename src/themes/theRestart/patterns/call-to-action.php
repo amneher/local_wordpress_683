@@ -25,8 +25,8 @@
 
             <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var(--wp--preset--spacing--small)"}}}} -->
             <div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--small)">
-                <!-- wp:button {"style":{"typography":{"fontFamily":"var(--wp--preset--font-family--montserrat)","fontWeight":"700","letterSpacing":"0.05em","textTransform":"uppercase"},"border":{"radius":"3px"},"color":{"background":"#47b4b0","text":"#ffffff"}}} -->
-                <div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background wp-element-button" href="/start-a-registry/" style="background-color:#47b4b0;border-radius:3px;color:#ffffff;font-family:var(--wp--preset--font-family--montserrat);font-weight:700;letter-spacing:0.05em;text-transform:uppercase">Create a Registry</a></div>
+                <!-- wp:button {"style":{"typography":{"fontFamily":"var(--wp--preset--font-family--montserrat)","fontWeight":"700","letterSpacing":"0.05em","textTransform":"uppercase"},"border":{"radius":"4px"},"color":{"background":"#ebd060","text":"#193540"}}} -->
+                <div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background wp-element-button" href="/start-a-registry/" style="background-color:#ebd060;border-radius:4px;color:#193540;font-family:var(--wp--preset--font-family--montserrat);font-weight:700;letter-spacing:0.05em;text-transform:uppercase">Create a Registry</a></div>
                 <!-- /wp:button -->
             </div>
             <!-- /wp:buttons -->
