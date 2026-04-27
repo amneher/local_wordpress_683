@@ -6,7 +6,9 @@
         
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "^12",
+        "brain/monkey": "^2.7",
+        "mockery/mockery": "^1.6",
         "monolog/monolog": "^2.0"
     },
     "license": "MIT",
