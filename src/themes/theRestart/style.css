@@ -215,6 +215,60 @@ a:hover { color: var(--wp--preset--color--primary); }
     border-bottom-color: #47b4b0;
 }
 
+.restart-my-account__edit-panel {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1.5px solid #e5eaea;
+}
+
+.restart-my-account__section-title {
+    font-family: var(--wp--preset--font-family--libre-caslon-display);
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 400;
+    color: #193540;
+    margin-bottom: 1.5rem;
+}
+
+.restart-form__actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.restart-btn--ghost {
+    background: transparent;
+    color: #8a9ea0 !important;
+    border: 1.5px solid #8a9ea0;
+}
+
+.restart-btn--ghost:hover {
+    background: transparent;
+    color: #193540 !important;
+    border-color: #193540;
+}
+
+.restart-form__success {
+    padding: 0.75rem 1rem;
+    background: #f0fff8;
+    border: 1.5px solid #47b4b0;
+    border-radius: 3px;
+    color: #1a7a70;
+    font-family: var(--wp--preset--font-family--montserrat);
+    font-size: 13px;
+    margin-bottom: 1.5rem;
+}
+
+.restart-form__footer-link {
+    margin-top: 1.25rem;
+}
+
+.restart-form__footer-link a {
+    color: #47b4b0;
+    text-decoration: underline;
+}
+
 /* Footer */
 .site-footer__columns {
     min-width: 0;

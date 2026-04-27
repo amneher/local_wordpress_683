@@ -131,12 +131,159 @@ add_shortcode('restart_my_account', function () {
         <nav class="restart-my-account__nav" aria-label="Account navigation">
             <ul>
                 <li><a href="<?php echo esc_url(home_url('/registry/')); ?>">My Registries</a></li>
-                <li><a href="<?php echo esc_url(get_edit_profile_url($user->ID)); ?>">Edit Profile</a></li>
+                <li><a href="#edit-profile" id="rr-edit-profile-toggle">Edit Profile</a></li>
                 <li><a href="<?php echo esc_url(wp_logout_url(home_url('/'))); ?>">Log Out</a></li>
             </ul>
         </nav>
 
+        <div id="rr-edit-profile-panel" class="restart-my-account__edit-panel" hidden>
+            <h2 class="restart-my-account__section-title">Edit Profile</h2>
+
+            <div id="rr-profile-message" class="restart-form__success" hidden></div>
+            <div id="rr-profile-error" class="restart-form__error" hidden></div>
+
+            <form id="rr-profile-form" class="restart-form" novalidate>
+                <input type="hidden" id="rr-profile-nonce" value="<?php echo esc_attr(wp_create_nonce('restart_update_profile_nonce')); ?>" />
+
+                <div class="restart-form__group">
+                    <label class="restart-form__label" for="rr-display-name">Display Name</label>
+                    <input class="restart-form__input" type="text" id="rr-display-name" name="display_name"
+                        value="<?php echo esc_attr($user->display_name); ?>" maxlength="100">
+                </div>
+
+                <div class="restart-form__group">
+                    <label class="restart-form__label" for="rr-email">Email Address</label>
+                    <input class="restart-form__input" type="email" id="rr-email" name="email"
+                        value="<?php echo esc_attr($user->user_email); ?>">
+                </div>
+
+                <div class="restart-form__group">
+                    <label class="restart-form__label" for="rr-new-password">New Password <span class="restart-form__hint" style="display:inline">(leave blank to keep current)</span></label>
+                    <input class="restart-form__input" type="password" id="rr-new-password" name="password"
+                        autocomplete="new-password" minlength="8">
+                </div>
+
+                <div class="restart-form__actions">
+                    <button type="submit" class="restart-btn" id="rr-profile-save">Save Changes</button>
+                    <button type="button" class="restart-btn restart-btn--ghost" id="rr-edit-profile-cancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+
     </div>
     <?php
     return ob_get_clean();
+});
+
+add_shortcode('restart_login_form', function () {
+    if (is_user_logged_in()) {
+        return '<p>' . wp_kses_post(
+            sprintf('You are already logged in. <a href="%s">Go to your account</a>.', esc_url(home_url('/my-account/')))
+        ) . '</p>';
+    }
+
+    $error = isset($_GET['login']) && $_GET['login'] === 'failed'
+        ? 'Incorrect username or password. Please try again.'
+        : '';
+
+    $redirect_to = isset($_GET['redirect_to']) ? esc_url(urldecode($_GET['redirect_to'])) : esc_url(home_url('/my-account/'));
+
+    ob_start();
+    ?>
+    <form class="restart-form" method="post" action="<?php echo esc_url(site_url('wp-login.php')); ?>">
+        <input type="hidden" name="redirect_to" value="<?php echo esc_attr($redirect_to); ?>" />
+        <input type="hidden" name="testcookie" value="1" />
+
+        <?php if ($error) : ?>
+        <div class="restart-form__error"><?php echo esc_html($error); ?></div>
+        <?php endif; ?>
+
+        <div class="restart-form__group">
+            <label class="restart-form__label" for="user_login">Username or Email</label>
+            <input class="restart-form__input" type="text" id="user_login" name="log" required autocomplete="username">
+        </div>
+
+        <div class="restart-form__group">
+            <label class="restart-form__label" for="user_pass">Password</label>
+            <input class="restart-form__input" type="password" id="user_pass" name="pwd" required autocomplete="current-password">
+        </div>
+
+        <div class="restart-form__actions">
+            <button type="submit" name="wp-submit" class="restart-btn">Log In</button>
+        </div>
+
+        <p class="restart-form__hint restart-form__footer-link">
+            Don't have an account? <a href="<?php echo esc_url(wp_registration_url()); ?>">Create one</a>.
+        </p>
+    </form>
+    <?php
+    return ob_get_clean();
+});
+
+add_shortcode('restart_register_form', function () {
+    if (is_user_logged_in()) {
+        return '<p>' . wp_kses_post(
+            sprintf('You already have an account. <a href="%s">Go to your account</a>.', esc_url(home_url('/my-account/')))
+        ) . '</p>';
+    }
+
+    if (!get_option('users_can_register')) {
+        return '<p>Account registration is currently closed.</p>';
+    }
+
+    ob_start();
+    ?>
+    <div id="rr-register-error" class="restart-form__error" hidden></div>
+
+    <form id="rr-register-form" class="restart-form" novalidate>
+        <div class="restart-form__group">
+            <label class="restart-form__label" for="rr-reg-username">Username <span aria-hidden="true">*</span></label>
+            <input class="restart-form__input" type="text" id="rr-reg-username" name="username"
+                required autocomplete="username" maxlength="60">
+        </div>
+
+        <div class="restart-form__group">
+            <label class="restart-form__label" for="rr-reg-email">Email Address <span aria-hidden="true">*</span></label>
+            <input class="restart-form__input" type="email" id="rr-reg-email" name="email"
+                required autocomplete="email">
+        </div>
+
+        <div class="restart-form__group">
+            <label class="restart-form__label" for="rr-reg-password">Password <span aria-hidden="true">*</span></label>
+            <input class="restart-form__input" type="password" id="rr-reg-password" name="password"
+                required autocomplete="new-password" minlength="8">
+            <p class="restart-form__hint">At least 8 characters.</p>
+        </div>
+
+        <div class="restart-form__actions">
+            <button type="submit" class="restart-btn" id="rr-register-submit">Create Account</button>
+        </div>
+
+        <p class="restart-form__hint restart-form__footer-link">
+            Already have an account? <a href="<?php echo esc_url(wp_login_url()); ?>">Log in</a>.
+        </p>
+    </form>
+    <?php
+    return ob_get_clean();
+});
+
+// Enqueue auth JS on login, register, and account pages.
+add_action('wp_enqueue_scripts', function () {
+    if (!is_page(['login', 'register', 'my-account'])) {
+        return;
+    }
+
+    wp_enqueue_script(
+        'restart-auth',
+        get_stylesheet_directory_uri() . '/assets/js/auth.js',
+        ['jquery'],
+        wp_get_theme()->get('Version'),
+        true
+    );
+
+    wp_localize_script('restart-auth', 'restartAuth', [
+        'ajaxUrl'            => admin_url('admin-ajax.php'),
+        'registerNonce'      => wp_create_nonce('restart_register_nonce'),
+        'updateProfileNonce' => wp_create_nonce('restart_update_profile_nonce'),
+    ]);
 });
