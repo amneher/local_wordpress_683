@@ -19,16 +19,19 @@ add_action('init', function () {
     }
 
     // Use add_cap so caps stay current even if the role was already persisted.
+    // read_private_restart_registries is intentionally omitted: granting it would let
+    // any registry user read every other user's private registry via the WP REST API.
+    // Invitee access to private registries is handled by the map_meta_cap filter below.
     $registry_user_caps = [
         'edit_restart_registries',
         'publish_restart_registries',
         'delete_restart_registries',
-        'read_private_restart_registries',
     ];
     $registry_user = get_role('registry_user');
     foreach ($registry_user_caps as $cap) {
         $registry_user->add_cap($cap);
     }
+    $registry_user->remove_cap('read_private_restart_registries');
 
     // Grant administrator the full set of custom caps so admin users can
     // create/edit/delete any restart-registry post (including setting author).
@@ -51,6 +54,41 @@ add_action('init', function () {
         }
     }
 });
+
+/**
+ * Grant invitees read access to private registries at the WP capability level.
+ *
+ * Without read_private_restart_registries on registry_user, WP would 404 a
+ * private registry for a legitimate invitee. This filter intercepts the
+ * capability check and returns ['read'] (which every registry_user has) when
+ * the requesting user appears in the post's invitee list.
+ */
+add_filter('map_meta_cap', function (array $caps, string $cap, int $user_id, array $args): array {
+    if ($cap !== 'read_post' || empty($args[0])) {
+        return $caps;
+    }
+    $post = get_post($args[0]);
+    if (!$post || $post->post_type !== 'restart-registry' || $post->post_status !== 'private') {
+        return $caps;
+    }
+    // WP already grants ['read'] for the post's own author — leave those alone.
+    if ($caps === ['read']) {
+        return $caps;
+    }
+    // Check the stored invitee list for this registry.
+    $invitees = json_decode(get_post_meta($post->ID, 'restart_invitees', true) ?: '[]', true) ?: [];
+    if (empty($invitees)) {
+        return $caps;
+    }
+    $user = get_userdata($user_id);
+    if ($user && (
+        in_array($user->user_email, $invitees, true) ||
+        in_array($user->user_login,  $invitees, true)
+    )) {
+        return ['read'];
+    }
+    return $caps;
+}, 10, 4);
 
 add_action('init', function () {
     register_post_type('restart-registry', [
