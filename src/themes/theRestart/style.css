@@ -269,6 +269,98 @@ a:hover { color: var(--wp--preset--color--primary); }
     text-decoration: underline;
 }
 
+/* My Registries */
+.restart-my-registries__section {
+    margin-bottom: 3rem;
+}
+
+.restart-my-registries__heading {
+    font-family: var(--wp--preset--font-family--libre-caslon-display);
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 400;
+    color: #193540;
+    margin-bottom: 1.25rem;
+}
+
+.restart-my-registries__empty {
+    color: #8a9ea0;
+    font-family: var(--wp--preset--font-family--montserrat);
+    font-size: 14px;
+}
+
+.restart-my-registries__empty a {
+    color: #47b4b0;
+    text-decoration: underline;
+}
+
+.restart-registry-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1.5px solid #e5eaea;
+}
+
+.restart-registry-list__item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid #e5eaea;
+    flex-wrap: wrap;
+}
+
+.restart-registry-list__title {
+    font-family: var(--wp--preset--font-family--libre-caslon-text);
+    font-size: 17px;
+    color: #193540;
+    text-decoration: none;
+    flex: 1 1 auto;
+}
+
+.restart-registry-list__title:hover {
+    color: #47b4b0;
+}
+
+.restart-registry-list__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.restart-registry-list__type,
+.restart-registry-list__owner {
+    font-family: var(--wp--preset--font-family--montserrat);
+    font-size: 12px;
+    color: #8a9ea0;
+}
+
+.restart-registry-list__status {
+    font-family: var(--wp--preset--font-family--montserrat);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+}
+
+.restart-registry-list__status--publish {
+    background: #f0fff8;
+    color: #1a7a70;
+}
+
+.restart-registry-list__status--private {
+    background: #fff8e6;
+    color: #a07a00;
+}
+
+.restart-registry-list__status--draft {
+    background: #f4f4f4;
+    color: #8a9ea0;
+}
+
 /* Footer */
 .site-footer__columns {
     min-width: 0;

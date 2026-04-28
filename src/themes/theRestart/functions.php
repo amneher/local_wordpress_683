@@ -130,7 +130,7 @@ add_shortcode('restart_my_account', function () {
 
         <nav class="restart-my-account__nav" aria-label="Account navigation">
             <ul>
-                <li><a href="<?php echo esc_url(home_url('/registry/')); ?>">My Registries</a></li>
+                <li><a href="<?php echo esc_url(home_url('/my-registries/')); ?>">My Registries</a></li>
                 <li><a href="#edit-profile" id="rr-edit-profile-toggle">Edit Profile</a></li>
                 <li><a href="<?php echo esc_url(wp_logout_url(home_url('/'))); ?>">Log Out</a></li>
             </ul>
@@ -263,6 +263,98 @@ add_shortcode('restart_register_form', function () {
             Already have an account? <a href="<?php echo esc_url(wp_login_url()); ?>">Log in</a>.
         </p>
     </form>
+    <?php
+    return ob_get_clean();
+});
+
+add_shortcode('restart_my_registries', function () {
+    if (!is_user_logged_in()) {
+        return '<p>' . wp_kses_post(
+            sprintf('Please <a href="%s">log in</a> to view your registries.', esc_url(wp_login_url(get_permalink())))
+        ) . '</p>';
+    }
+
+    $user    = wp_get_current_user();
+    $user_id = $user->ID;
+
+    $owned = get_posts([
+        'post_type'      => 'restart-registry',
+        'post_status'    => ['publish', 'private', 'draft'],
+        'author'         => $user_id,
+        'posts_per_page' => -1,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    ]);
+
+    $invited = get_posts([
+        'post_type'      => 'restart-registry',
+        'post_status'    => ['publish', 'private'],
+        'author__not_in' => [$user_id],
+        'posts_per_page' => -1,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'meta_query'     => [
+            'relation' => 'OR',
+            [
+                'key'     => 'restart_invitees',
+                'value'   => $user->user_login,
+                'compare' => 'LIKE',
+            ],
+            [
+                'key'     => 'restart_invitees',
+                'value'   => $user->user_email,
+                'compare' => 'LIKE',
+            ],
+        ],
+    ]);
+
+    ob_start();
+    ?>
+    <div class="restart-my-registries">
+
+        <section class="restart-my-registries__section">
+            <h2 class="restart-my-registries__heading">My Registries</h2>
+            <?php if (empty($owned)) : ?>
+                <p class="restart-my-registries__empty">You haven't created any registries yet. <a href="<?php echo esc_url(home_url('/start-a-registry/')); ?>">Start one now</a>.</p>
+            <?php else : ?>
+                <ul class="restart-registry-list">
+                    <?php foreach ($owned as $post) :
+                        $status     = $post->post_status;
+                        $event_type = get_post_meta($post->ID, 'restart_event_type', true);
+                        ?>
+                        <li class="restart-registry-list__item">
+                            <a class="restart-registry-list__title" href="<?php echo esc_url(get_permalink($post->ID)); ?>"><?php echo esc_html($post->post_title); ?></a>
+                            <span class="restart-registry-list__meta">
+                                <?php if ($event_type) : ?><span class="restart-registry-list__type"><?php echo esc_html(ucfirst(str_replace('-', ' ', $event_type))); ?></span><?php endif; ?>
+                                <span class="restart-registry-list__status restart-registry-list__status--<?php echo esc_attr($status); ?>"><?php echo esc_html($status === 'publish' ? 'Public' : ucfirst($status)); ?></span>
+                            </span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </section>
+
+        <?php if (!empty($invited)) : ?>
+        <section class="restart-my-registries__section">
+            <h2 class="restart-my-registries__heading">Registries I'm Invited To</h2>
+            <ul class="restart-registry-list">
+                <?php foreach ($invited as $post) :
+                    $owner      = get_userdata($post->post_author);
+                    $event_type = get_post_meta($post->ID, 'restart_event_type', true);
+                    ?>
+                    <li class="restart-registry-list__item">
+                        <a class="restart-registry-list__title" href="<?php echo esc_url(get_permalink($post->ID)); ?>"><?php echo esc_html($post->post_title); ?></a>
+                        <span class="restart-registry-list__meta">
+                            <?php if ($event_type) : ?><span class="restart-registry-list__type"><?php echo esc_html(ucfirst(str_replace('-', ' ', $event_type))); ?></span><?php endif; ?>
+                            <?php if ($owner) : ?><span class="restart-registry-list__owner">by <?php echo esc_html($owner->display_name); ?></span><?php endif; ?>
+                        </span>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </section>
+        <?php endif; ?>
+
+    </div>
     <?php
     return ob_get_clean();
 });
