@@ -66,6 +66,7 @@ services:
     volumes:
       - wordpress:/var/www/html
       - ./src:/var/www/html/wp-content:rw
+      - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
     networks:
       - internal
 
