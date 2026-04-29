@@ -379,3 +379,29 @@ add_action('wp_enqueue_scripts', function () {
         'updateProfileNonce' => wp_create_nonce('restart_update_profile_nonce'),
     ]);
 });
+
+// Fix: WP strips inherit:true from query block context (it equals the default), so
+// category/taxonomy archives don't filter the query loop. Inject the term filter here.
+add_filter('query_loop_block_query_vars', function (array $query, WP_Block $block, int $page): array {
+    if (is_category()) {
+        $term = get_queried_object();
+        if ($term instanceof WP_Term) {
+            $query['cat'] = $term->term_id;
+        }
+    } elseif (is_tag()) {
+        $term = get_queried_object();
+        if ($term instanceof WP_Term) {
+            $query['tag_id'] = $term->term_id;
+        }
+    } elseif (is_tax()) {
+        $term = get_queried_object();
+        if ($term instanceof WP_Term) {
+            $query['tax_query'][] = [
+                'taxonomy' => $term->taxonomy,
+                'field'    => 'term_id',
+                'terms'    => [$term->term_id],
+            ];
+        }
+    }
+    return $query;
+}, 10, 3);
