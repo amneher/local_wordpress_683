@@ -1,0 +1,122 @@
+  Photography Plan for The Restart                                                              
+                                                                                                  
+  The visual thesis                                                                               
+                                                                                                  
+  Every photo sits behind a dark teal (#193540) overlay. That means the photography doesn't need  
+  to be literal — it needs to feel right when dimmed. Look for: strong directional light, a clear 
+  focal point, not too busy. Images with a lot of mid-tone detail look muddy at 65% dim. Images   
+  with strong light/shadow contrast survive the overlay beautifully.
+
+  ---
+  Homepage CTA band — "Build your registry. Start fresh."
+                                                         
+  Drop dim from 70% → 60% so the image actually shows through. At 70% you're just looking at a
+  dark rectangle.                                                                                 
+   
+  What to look for:                                                                               
+  - A woman opening a door or stepping through a doorway into light
+  - Someone placing plants or arranging a new space, looking satisfied                            
+  - An empty, sunlit apartment — the moment before a new chapter      
+                                                                                                  
+  Unsplash search terms:                                                                          
+  - woman doorway light morning                                                                   
+  - woman moving into apartment confident                                                         
+  - empty apartment sunlight hardwood    
+  - woman new home plants moving                                                                  
+                                
+  What to avoid: sad expressions, overly staged/stock-photo energy, cluttered scenes, anything    
+  that reads "divorce" rather than "fresh start."                                                 
+                                                                                                  
+  ---                                                                                             
+  Sub-page headers (Login, Register, Start a Registry, My Account, My Registries)
+                                                                                                  
+  These are only 220px tall — the image is mostly atmosphere. One image across all sub-pages keeps
+   things coherent and saves you from hunting for 5 separate photos.                              
+                  
+  Best fit: An overhead/flat-lay of morning items on a light surface — journal, coffee, a few     
+  plants, maybe keys. Or: a soft close-up of morning light on a windowsill with a plant. Something
+   personal, quiet, and self-possessed.                                                           
+                  
+  Unsplash search terms:                                                                          
+  - morning desk journal coffee flatlay
+  - woman journaling morning light minimal                                                        
+  - windowsill plant morning light soft   
+  - aerial journal notebook coffee minimal
+                                                                                                  
+  Keep dim at 65%. Set the focal point in the center of the image so the 220px crop shows the most
+   interesting part.                                                                              
+                  
+  ---                                                                                             
+  Blog / article pages
+                      
+  Single posts: Each post should get a featured image set individually. When you write a post
+  about legal tips, a photo of someone confidently reading documents. When you write about        
+  rebuilding your social life, friends at a table. The cover block in the single post template
+  will use the featured image automatically if you wire it up — or you can just use the post's    
+  featured image in a header image block.
+
+  Category archive headers: Same approach as sub-page headers — one strong image per category. For
+   the main blog/articles category, something like:
+  - woman reading couch light empowered                                                           
+  - woman laptop coffee home confident                                                            
+   
+  ---                                                                                             
+  How to add them in WordPress
+                                                                                                  
+  1. Download the image from Unsplash (free, no attribution required for personal/commercial use
+  under Unsplash License)                                                                         
+  2. Upload to WP Admin → Media → Add New
+  3. Edit the page (or use Appearance → Editor for templates) → click the Cover block → in the    
+  right sidebar under "Media," click "Replace" and select your uploaded image                     
+  4. Set the focal point — drag the dot to the most important part of the image (usually a face or
+   the brightest area)                                                                            
+  5. Adjust the dim ratio — for the CTA band, bring it to 60%; sub-pages can stay at 65%
+                                                                                                  
+  For the sub-page templates (login, register, etc.) you'll do this via Appearance → Editor →     
+  Templates in the block editor, since those are FSE templates.                                   
+                                                                                                  
+  ---             
+  One thing to watch
+                    
+  The teal overlay is a strong brand element — keep it. Don't switch to a black overlay. The
+  teal-over-photography look is distinctive and already part of what makes this site feel like    
+  itself, not a generic WordPress theme. Just let the photography show through a bit more by
+  reducing the dim ratio.                                                                         
+                  
+  Want me to mock up what the CTA band would look like with a specific image before you commit? I 
+  can pull a specific Unsplash image and show you the dimmed result.
+                                                                                                  
+✻ Cogitated for 2m 19s              
+
+──────────────────────────────────────────────────────────────────────────────────────────────────
+❯  
+──────────────────────────────────────────────────────────────────────────────────────────────────
+  ? for shortcuts 
+
+  the featured image automatically if you wire it up — or you can just use the post's featured image in a header image block.
+
+  Category archive headers: Same approach as sub-page headers — one strong image per category. For the main blog/articles category, something
+  like:
+  - woman reading couch light empowered
+  - woman laptop coffee home confident
+
+  ---
+  How to add them in WordPress
+
+  1. Download the image from Unsplash (free, no attribution required for personal/commercial use under Unsplash License)
+  2. Upload to WP Admin → Media → Add New
+  3. Edit the page (or use Appearance → Editor for templates) → click the Cover block → in the right sidebar under "Media," click "Replace" and
+  select your uploaded image
+  4. Set the focal point — drag the dot to the most important part of the image (usually a face or the brightest area)
+  5. Adjust the dim ratio — for the CTA band, bring it to 60%; sub-pages can stay at 65%
+
+  For the sub-page templates (login, register, etc.) you'll do this via Appearance → Editor → Templates in the block editor, since those are FSE
+  templates.
+
+  ---
+  One thing to watch
+
+  The teal overlay is a strong brand element — keep it. Don't switch to a black overlay. The teal-over-photography look is distinctive and already
+   part of what makes this site feel like itself, not a generic WordPress theme. Just let the photography show through a bit more by reducing the
+  dim ratio.
+
