@@ -1,3 +1,3 @@
 [submodule "src/plugins/restart-registry"]
 	path = src/plugins/restart-registry
-	url = /home/andrew/projects/restart-registry
+	url = "https://github.com/amneher/restart-registry.git"
